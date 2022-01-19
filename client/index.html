@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<meta charset="UTF-8" />
+<title>My sharefile application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Open+Sans:300,400,600,700,800|Source+Sans+Pro:200,300,400,600,700,900" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css" />
+<link rel="stylesheet" href="./style.css" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="./load.js"></script>
+
+<!-- partial:index.partial.html -->
+<div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+    <button onclick="sidebar_close()" class="w3-bar-item w3-large">Close &times;</button>
+    <div class="w3-bar-item w3-large"
+        style=" margin-top: 10px; height: 45px; background-color:ghostwhite; overflow: auto;"
+        data-function="create-group">
+        Create group</div>
+    <div style="height: 40%;  overflow: auto;" id="ownedgroups"></div>
+    <script>load_groups("ownedgroups")</script>
+
+
+    <div style=" padding: 2px 0px 2px 0px; height: 45px;" class="w3-bar-item w3-large">
+        <input style="height: 40px; width: 45%; background-color:ghostwhite; overflow: auto; margin-right: 5%;"
+            placeholder="Group ID" id="joingroupID"></input>
+        <button style="height: 40px; width: 40%;" id="myBtn" onclick="join_group();">Join</button>
+    </div>
+    <div style="height: 40%; overflow: auto;" id="joinedgroups"></div>
+    <script>load_groups("joinedgroups")</script>
+
+    <script>
+        var input = document.getElementById("joingroupID");
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("myBtn").click();
+            }
+        });
+    </script>
+</div>
+
+<div class="cm-address-bar-search" style="margin-left: 0%" id="head" clear>
+    <div>
+        <div>
+            <button style="padding-top: 3px;" class="w3-button" onclick="sidebar_toggle()">☰</button>
+        </div>
+    </div>
+
+    <div class="address-search">
+        <div class="pos">
+            <input type="text" readonly class="address-search-input" style="overflow: auto;" />
+            <div class="cm-button address-button">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="address-short-btn"></div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <div style=" padding-top: 3px; padding-bottom: 5px;" data-function="new-folder">New Folder</div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <div style="padding-top: 3px; padding-bottom: 5px">
+                <label for="file">Upload file
+                    <input type='file' id="file" style="display: none;" onchange="uploadFile(this)" />
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="theme-structure big-file-manager" id="main">
+    <ul>
+        <li class=" file-sub-active show-up" id="">
+            <b class="tooltip">
+                <span class="tooltiptext"></span>
+            </b>
+        </li>
+    </ul>
+</div>
+<!-- partial -->
+
+<script>
+    function sidebar_toggle() {
+        if (document.getElementById("head").style.marginLeft == "0%") {
+            sidebar_open()
+        }
+        else
+            sidebar_close();
+    }
+    function sidebar_open() {
+        document.getElementById("main").style.marginLeft = "15%";
+        document.getElementById("head").style.marginLeft = "15%";
+        document.getElementById("main").style.width = "85%";
+        document.getElementById("head").style.width = "85%";
+        document.getElementById("mySidebar").style.width = "15%";
+        document.getElementById("mySidebar").style.display = "block";
+        let current_folder = document.getElementsByClassName("file-sub-active show-up");
+        for (let index = 0; index < current_folder.length; index++) {
+            // element = current_folder[index].style.width = "85%";
+        }
+    }
+    function sidebar_close() {
+        document.getElementById("main").style.marginLeft = "0%";
+        document.getElementById("head").style.marginLeft = "0%";
+        document.getElementById("main").style.width = "100%";
+        document.getElementById("head").style.width = "100%";
+        document.getElementById("mySidebar").style.display = "none";
+        let current_folder = document.getElementsByClassName("file-sub-active show-up");
+        for (let index = 0; index < current_folder.length; index++) {
+            element = current_folder[index].style.width = "100%";
+        }
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="./script.js"></script>
+
+</html>

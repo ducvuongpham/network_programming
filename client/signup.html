@@ -1,0 +1,92 @@
+<meta charset="UTF-8" />
+<title>My sharefile application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="./signup.css" />
+<script src="./load.js"></script>
+
+<form style="border:1px solid #ccc">
+    <div class="container">
+        <h1>Sign Up</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+        <div style="display: block" class="forsignup">
+            <label for="firstname"><b>First Name</b></label>
+            <input type="text" placeholder="Enter your first name" name="firstname" required>
+        </div>
+        <div style="display: block" class="forsignup">
+            <label for="lastname"><b>Last Name</b></label>
+            <input type="text" placeholder="Enter your last name" name="lastname" required>
+        </div>
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+
+        <div style="display: block" class="forsignup">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter username" name="username" required>
+        </div>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+        <div style="display: block" id="forsignup">
+            <label for="psw-repeat"><b>Repeat Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+        </div>
+        <div class="clearfix">
+            <button class="cancelbtn" onclick="deleteinput()">Cancel</button>
+            <button type="button" class="signupbtn" status="signup" onclick="signup()">Sign Up</button>
+        </div>
+        <div class="clearfix">
+            <button type="button" class="signinbtn" style="left: 25%;  position:relative;" id="changecommand"
+                onclick="toggle()">
+                Or Sign In
+            </button>
+        </div>
+    </div>
+</form>
+<script>
+    function deleteinput(param) {
+        let input = document.getElementsByTagName("input")
+        for (let index = 0; index < input.length; index++) {
+            input[index].value = ''
+        }
+    }
+    function checkpass() {
+        if (document.getElementsByName("psw-repeat")[0].value != document.getElementsByName("psw")[0].value) {
+            alert("Password does not match!")
+            return -1
+        }
+        return 1
+    }
+    function request(param) {
+        var url = domain + param;
+        this.xhr = new XMLHttpRequest();
+        this.xhr.open("POST", url);
+        this.xhr.setRequestHeader("Content-Type", "text/plain");
+    }
+
+    function signup() {
+        if (checkpass() == -1) {
+            return
+        }
+        var url = "http://test.com:5550/signup";
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.setRequestHeader("Content-Type", "text/plain");
+        xhr.withCredentials = true;
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                    alert("Success")
+                    window.location.href = fe_domain + "client/signin.html"
+                }
+                else alert("Something wrong")
+            }
+        };
+        let input = document.getElementsByTagName("input")
+        xhr.send('firstName: ' + input[0].value + '\nlastName: ' + input[1].value + '\nemail: ' + input[2].value + '\nusername: ' + input[3].value + '\npassword: ' + input[4].value);
+    }
+    function toggle() {
+        window.location.href = fe_domain + "client/signin.html"
+    }
+</script>
