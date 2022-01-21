@@ -46,7 +46,7 @@ void signin(char *firstMessage, int sockfd)
 {
     char username[50] = {'\0'};
     char password[50] = {'\0'};
-    char uid[8] = {'\0'};
+    char uid[9] = {'\0'};
     int status = 0;
     getValue(firstMessage, "username: ", username, sizeof(username));
     getValue(firstMessage, "password: ", password, sizeof(password));
@@ -62,7 +62,7 @@ void upload(char *firstMessage, int sockfd)
 
     char temp[514] = {'\0'};
     char filePath[512] = {'\0'};
-    char uid[9];
+    char uid[9] = {'\0'};
     char fileID[11] = {'\0'};
     char buff[BUFFER_SZ] = {'\0'};
     char *FileName;
@@ -138,7 +138,7 @@ void download(char *firstMessage, int sockfd)
 {
     char temp[514] = {'\0'};
     char fileName[512] = {'\0'};
-    char uid[9];
+    char uid[9] = {'\0'};
     char *fileID;
     sscanf(firstMessage, "%s", temp);
     sscanf(firstMessage + strlen(temp) + 1, "%s", temp);
